@@ -87,11 +87,11 @@ const Profile = () => {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-gray-100">
+        <div className="flex flex-col xl:flex-row min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-gray-100">
 
             {/* Notes Section */}
-            <div className="flex-1 p-10 lg:p-16 max-w-6xl mx-auto lg:mx-0">
-                <h2 className="text-4xl font-extrabold mb-10 tracking-wider text-white">
+            <div className="flex-1  p-10 lg:p-16 max-w-6xl  mx-auto lg:mx-0 ">
+                <h2 className="text-4xl font-extrabold mb-10 tracking-wider text-white ">
                     Your Notes
                 </h2>
 
@@ -128,7 +128,7 @@ const Profile = () => {
 
                 {/* Notes List */}
                 {notes.length > 0 ? (
-                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 ">
                         {notes.map((note) => (
                             <div
                                 key={note._id}
@@ -136,7 +136,7 @@ const Profile = () => {
                             >
                                 <div>
                                     <h3 className="font-bold text-white text-xl mb-2">{note.title}</h3>
-                                    <p className="text-gray-300 text-base">{note.content}</p>
+                                    <p className="text-gray-300 text-base line-clamp-6">{note.content}</p>
                                 </div>
                                 <button
                                     onClick={() => handleDeleteNote(note._id)}
@@ -156,30 +156,30 @@ const Profile = () => {
 
             {/* Profile Card */}
             {/* Profile Card */}
-            <div className="w-full max-md:top-0 max-md:order--10 md:fixed max-md:h-32 max-md:w-full max-md:h-20 max-md:-order-1 right-0 h-screen lg:w-96 bg-gray-850 shadow-2xl border-l border-gray-700 rounded-3xl p-10 flex flex-col max-md:flex-row justify-between">
-                <div className="flex flex-col items-center max-md:flex-row">
+            <div className="w-full  max-md:top-0 max-2xl:order--10 2xl:fixed max-lg:h-32 max-md:w-full max-xl:-order-1 right-0 h-screen lg:w-96 bg-gray-850 shadow-2xl border-l border-gray-700 rounded-3xl p-10 flex flex-col max-xl:flex-row justify-between">
+                <div className="flex flex-col gap-4 items-center max-xl:flex-row">
                     {/* Profile Image */}
-                    <div className="w-32 h-32  rounded-full overflow-hidden mb-6 shadow-inner border-2 border-gray-700">
+                    <div className="w-32 h-32 max-xl:h-16 bg-red-500 flex justify-center items-center max-xl:w-16 rounded-full overflow-hidden lg:mb-6 shadow-inner border-2 border-gray-700">
                         <img
                             src={user.profile_img || "/default-avatar.png"}
                             alt={user.fullName}
-                            className="max-md:h-30  max-md:w-30 rounded-full object-fit"
+                            className="w-full h-full   rounded-full object-cover"
                         />
                     </div>
 
                     {/* User Info */}
-                    <h1 className="md:text-3xl font-extrabold text-white mb-2 text-center ">
+                    <h1 className="text-xl lg:text-3xl font-extrabold text-white mb-2 text-center line-clamp-1">
                         {user.fullName}
                     </h1>
-                    <p className="text-gray-400 text-center mb-4 line-clamp-1">
+                    <p className="text-gray-400 max-lg:hidden text-center mb-4 line-clamp-1">
                         {user.bio || "No bio available"}
                     </p>
-                    <p className="text-gray-400 text-center text-sm">{user.email}</p>
+                    <p className="text-gray-400 text-center text-sm max-lg:hidden">{user.email}</p>
                 </div>
 
                 {/* Logout Button */}
                 <button
-                    className="mt-10 w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-3xl font-bold shadow-lg text-lg transition-all duration-300"
+                    className=" w-full max-xl:w-[30%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-3xl font-bold shadow-lg text-lg transition-all duration-300"
                     onClick={() => {
                         fetch("http://localhost:8000/logout", {
                             method: "POST",
