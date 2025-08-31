@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import type { User } from "../types/user";
+import { toast } from "react-toastify";
+
 
 type Note = {
     _id: string;
@@ -52,6 +54,7 @@ const Profile = () => {
                 setNotes([...notes, data.msg]);
                 setNewTitle("");
                 setNewContent("");
+                toast.success("Note Added Successfully")
             }
         } catch (err) {
             console.error(err);
@@ -65,6 +68,7 @@ const Profile = () => {
                 credentials: "include",
             });
             setNotes(notes.filter((note) => note._id !== id));
+            toast.success("Note Deleted Successfully")
         } catch (err) {
             console.error(err);
         }
@@ -120,7 +124,7 @@ const Profile = () => {
                     />
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-2xl font-bold shadow-lg text-lg transition-all duration-300"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-2xl font-bold shadow-lg text-lg transition-all duration-300 cursor-pointer "
                     >
                         Add Note
                     </button>
@@ -140,7 +144,7 @@ const Profile = () => {
                                 </div>
                                 <button
                                     onClick={() => handleDeleteNote(note._id)}
-                                    className="mt-6 w-full bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-2xl font-semibold transition"
+                                    className="mt-6 w-full bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-2xl font-semibold transition cursor-pointer"
                                 >
                                     Delete
                                 </button>
@@ -179,8 +183,9 @@ const Profile = () => {
 
                 {/* Logout Button */}
                 <button
-                    className=" w-full  max-xl:w-[30%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-3xl font-bold shadow-lg text-lg transition-all duration-300"
+                    className=" w-full  max-xl:w-[30%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-3xl font-bold shadow-lg text-lg transition-all duration-300 cursor-pointer"
                     onClick={() => {
+                        toast.success("Logged Out Successfully")
                         fetch("http://localhost:8000/logout", {
                             method: "POST",
                             credentials: "include",
