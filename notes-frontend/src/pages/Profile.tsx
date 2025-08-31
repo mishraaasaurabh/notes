@@ -156,7 +156,7 @@ const Profile = () => {
 
             {/* Profile Card */}
             {/* Profile Card */}
-            <div className="w-full  max-md:top-0 max-2xl:order--10 2xl:fixed max-lg:h-32 max-md:w-full max-xl:-order-1 right-0 h-screen lg:w-96 bg-gray-850 shadow-2xl border-l border-gray-700 rounded-3xl p-10 flex flex-col max-xl:flex-row justify-between">
+            <div className="w-full  max-md:top-0  2xl:fixed max-xl:h-32  max-xl:-order-1 right-0 h-screen xl:w-96 bg-gray-850 shadow-2xl border-l border-gray-700 rounded-3xl p-10 flex flex-col max-xl:flex-row   justify-between">
                 <div className="flex flex-col gap-4 items-center max-xl:flex-row">
                     {/* Profile Image */}
                     <div className="w-32 h-32 max-xl:h-16 bg-red-500 flex justify-center items-center max-xl:w-16 rounded-full overflow-hidden lg:mb-6 shadow-inner border-2 border-gray-700">
@@ -168,18 +168,18 @@ const Profile = () => {
                     </div>
 
                     {/* User Info */}
-                    <h1 className="text-xl lg:text-3xl font-extrabold text-white mb-2 text-center line-clamp-1">
+                    <h1 className="text-xl xl:text-3xl font-extrabold text-white mb-2 text-center ">
                         {user.fullName}
                     </h1>
-                    <p className="text-gray-400 max-lg:hidden text-center mb-4 line-clamp-1">
+                    <p className="text-gray-400 max-xl:hidden text-center mb-4 line-clamp-1">
                         {user.bio || "No bio available"}
                     </p>
-                    <p className="text-gray-400 text-center text-sm max-lg:hidden">{user.email}</p>
+                    <p className="text-gray-400 text-center text-sm max-xl:hidden">{user.email}</p>
                 </div>
 
                 {/* Logout Button */}
                 <button
-                    className=" w-full max-xl:w-[30%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-3xl font-bold shadow-lg text-lg transition-all duration-300"
+                    className=" w-full  max-xl:w-[30%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-3xl font-bold shadow-lg text-lg transition-all duration-300"
                     onClick={() => {
                         fetch("http://localhost:8000/logout", {
                             method: "POST",
