@@ -13,7 +13,7 @@ configDotenv();
 const app = express();
 app.use(express.json())
 app.use(cors({
-  origin: "https://notes-mocha-mu.vercel.app",
+  origin: ["https://notes-mocha-mu.vercel.app","http://localhost:5174"],
 // origin: "*",
   credentials: true,   // allow cookies
 }));
@@ -179,9 +179,13 @@ app.post("/login", async(req,res)=>{
 
     // console.log("JWT_TOKEN",token);
 
-    res.cookie("first_cokkie",token,{
-        maxAge: 24*60*60*1000,
-    })
+    res.cookie("first_cokkie", token, {
+  maxAge: 24 * 60 * 60 * 1000,
+  httpOnly: true,
+  sameSite: "none",  // <-- important!
+  secure: true       // <-- required for HTTPS
+});
+
     
     
     // console.log(`${user.fullName} logged successfully`)
