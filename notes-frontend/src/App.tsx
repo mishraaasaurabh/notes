@@ -6,7 +6,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 
 // ProtectedRoute component
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading } = useAuth();
   if (loading) return <p>Loading...</p>; // show loading while checking auth
   return user ? children : <Navigate to="/login" replace />;
