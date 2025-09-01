@@ -23,7 +23,7 @@ const Signup = () => {
         const data = await res.json();
         setError(data.message || "Signup failed");
       }
-    } catch (err) {
+    } catch {
       setError("Something went wrong");
     }
   };
