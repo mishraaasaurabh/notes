@@ -13,7 +13,7 @@ configDotenv();
 const app = express();
 app.use(express.json())
 app.use(cors({
-  origin: "http://localhost:5174",
+  origin: "https://notes-mocha-mu.vercel.app",
 // origin: "*",
   credentials: true,   // allow cookies
 }));
