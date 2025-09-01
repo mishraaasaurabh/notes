@@ -192,7 +192,6 @@ const Profile = () => {
                             credentials: "include",
                         }).then(() => {
                             setUser(null);
-                            toast.success("logged successfully")
                             window.location.href = "/login";
                         });
                     }}
