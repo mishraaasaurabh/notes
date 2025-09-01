@@ -1,13 +1,15 @@
 import express from "express"
-import mongoose from "mongoose"
+import mongoose, { mongo } from "mongoose"
 import bcrypt, { hash } from "bcrypt"
 import jwt from "jsonwebtoken"
 import User from "./models/db.js";
+import { configDotenv } from "dotenv";
 import cookieParser from "cookie-parser";
 import Notes from "./models/Notes.js";
 import cors from "cors"
 // import dotenv;
 
+configDotenv();
 const app = express();
 app.use(express.json())
 app.use(cors({
@@ -20,7 +22,9 @@ app.use(cookieParser())
 const PORT = 8000
 const SECRET_KEY="Rain is Fo343"
 
-mongoose.connect("mongodb://localhost:27017/highwaydelite")
+const mongodburl = process.env.MONGODB_URL;
+// console.log(mongodburl)
+mongoose.connect(`${mongodburl}`)
 .then(()=>console.log("Connected to mongodb"))
 .catch(()=>console.log("Couldn't connect to mongodb"))
 
@@ -111,9 +115,10 @@ app.post("/logout", async(req,res)=>{
 
 app.post("/signup",async (req,res)=>{
     try {
-        const {email,password,fullName} = req.body;
+        const {email,password,name: fullName} = req.body;
+        // console.log(email,password,fullName)
         if(!email || !password || !fullName){
-            res.status(400).json({msg: "Enter a valid credetentials"})
+            res.status(400).json({msg: "Enter  valid credetentials"})
             return;
         }
 
@@ -135,8 +140,8 @@ app.post("/signup",async (req,res)=>{
             fullName: fullName
         })
         await newUser.save();
-        console.log(`${fullName} inserted successfully`)
-        return res.status(401).json({msg: newUser})
+        // console.log(`${fullName} inserted successfully`)
+        return res.status(201).json({msg: newUser})
 
         
     } catch (error) {
@@ -160,24 +165,25 @@ app.post("/login", async(req,res)=>{
          res.status(400).json({msg: "Invalid Password"});
          return
     }
-    console.log(user)
+    // console.log(user)
 
     const plainobj = {
         id: user._id,
         email: user.email,
+        fullName: user.fullName,
         profile_img: user.profile_img,
         bio: user.bio
     }
-    const token = jwt.sign(plainobj,SECRET_KEY,{expiresIn: '1h'});
+    const token = jwt.sign(plainobj,SECRET_KEY);
 
-    console.log("JWT_TOKEN",token);
+    // console.log("JWT_TOKEN",token);
 
     res.cookie("first_cokkie",token,{
         maxAge: 24*60*60*1000,
     })
     
     
-    console.log(`${user.fullName} logged successfully`)
+    // console.log(`${user.fullName} logged successfully`)
     return res.status(200).json({msg: plainobj})
 })
 
@@ -188,6 +194,6 @@ app.get("/",(req,res)=>{
 })
 
 app.listen(PORT,()=>{
-    console.log(`server is running at http://localhost:${PORT}:`,)
+    console.log(`server is running at ${PORT}:`,)
 })
 

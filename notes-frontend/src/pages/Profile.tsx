@@ -10,6 +10,7 @@ type Note = {
 };
 
 const Profile = () => {
+    
     const [user, setUser] = useState<User | null>(null);
     const [notes, setNotes] = useState<Note[]>([]);
     const [loading, setLoading] = useState(true);
@@ -17,7 +18,7 @@ const Profile = () => {
     const [newContent, setNewContent] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:8000/profile", {
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/profile`, {
             method: "GET",
             credentials: "include",
         })
@@ -31,7 +32,7 @@ const Profile = () => {
 
     useEffect(() => {
         if (!user) return;
-        fetch("http://localhost:8000/notes", {
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/notes`, {
             method: "GET",
             credentials: "include",
         })
@@ -43,7 +44,7 @@ const Profile = () => {
     const handleAddNote = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch("http://localhost:8000/add-note", {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/add-note`, {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -63,7 +64,7 @@ const Profile = () => {
 
     const handleDeleteNote = async (id: string) => {
         try {
-            await fetch(`http://localhost:8000/notes/${id}`, {
+            await fetch(`${import.meta.env.VITE_BACKEND_URL}/notes/${id}`, {
                 method: "DELETE",
                 credentials: "include",
             });
@@ -186,11 +187,12 @@ const Profile = () => {
                     className=" w-full  max-xl:w-[30%] bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-3xl font-bold shadow-lg text-lg transition-all duration-300 cursor-pointer"
                     onClick={() => {
                         toast.success("Logged Out Successfully")
-                        fetch("http://localhost:8000/logout", {
+                        fetch(`${import.meta.env.VITE_BACKEND_URL}/logout`, {
                             method: "POST",
                             credentials: "include",
                         }).then(() => {
                             setUser(null);
+                            toast.success("logged successfully")
                             window.location.href = "/login";
                         });
                     }}

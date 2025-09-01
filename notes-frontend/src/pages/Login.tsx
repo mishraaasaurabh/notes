@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const nav = useNavigate();
@@ -17,7 +18,7 @@ const Login = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:8000/login", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -28,6 +29,7 @@ const Login = () => {
         const data = await res.json(); // backend returns logged-in user
         setUser(data.msg); // update context
         nav("/profile"); // redirect immediately
+        toast.success(`Welcome ${data.msg.fullName}!`)
       } else {
         const data = await res.json();
         setError(data.message || "Login failed");
@@ -79,6 +81,8 @@ const Login = () => {
             Login
           </button>
         </div>
+                    <div className="text-center text-md mt-2">Email:saurabhmishra@gmail.com Password:Saurabh@123</div>
+
 
         <p className="text-gray-600 text-sm text-center mt-4">
           Don’t have an account?{" "}
