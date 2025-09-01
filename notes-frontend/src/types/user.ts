@@ -1,5 +1,5 @@
 // src/types/user.ts
-export default interface User {
+export interface User {
   id: string;
   email: string;
   profile_img?: string;
