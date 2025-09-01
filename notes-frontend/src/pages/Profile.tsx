@@ -166,7 +166,7 @@ const Profile = () => {
                     {/* Profile Image */}
                     <div className="w-32 h-32 max-xl:h-16 bg-red-500 flex justify-center items-center max-xl:w-16 rounded-full overflow-hidden lg:mb-6 shadow-inner border-2 border-gray-700">
                         <img
-                            src={user.profile_img || "/default-avatar.png"}
+                            src={user.profile_img}
                             alt={user.fullName}
                             className="w-full h-full   rounded-full object-cover"
                         />
